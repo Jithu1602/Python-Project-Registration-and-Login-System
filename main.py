@@ -1,4 +1,22 @@
 import bcrypt
+import re
+
+regex = re.compile(r"(^[a-zA-Z]+@[a-zA-Z0-9]+\.[a-zA-Z0-9.]*\.*[com|org|edu]{3}$)")
+r_p = re.compile(r"(^(?=\S{5,16}$)(?=.*?\d)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[^A-Za-z\s0-9])')")
+
+def isValid(email):
+    if re.fullmatch(regex, email):
+      print("Valid email.")
+    else:
+      print("Invalid email. Please Try Again")
+      register()
+
+def isValid1(password1):
+    if re.fullmatch(r_p, password1):
+      print("Valid password.")
+    else:
+      print("Invalid password. Please Try again \n The password should contain: \n min length is 5 and max length is 16 \n at least include a digit number \n at least a upcase and a lowcase letter \n at least a special characters")
+      register()
 
 
 def welcome():
@@ -62,7 +80,9 @@ def gainAccess(Username=None, Password=None):
 
 def register(Username=None, Password1=None, Password2=None):
     Username = input("Enter a username:")
+    isValid(Username)
     Password1 = input("Create password:")
+    isValid1(Password1)
     Password2 = input("Confirm Password:")
     db = open("database.txt", "r")
     d = []
